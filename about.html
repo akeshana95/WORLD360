@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | World360</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0ea5e9',
+                        dark: '#0f172a',
+                    }
+                }
+            }
+        }
+    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="pt-32 pb-24 hero-gradient">
+    <!-- Nav -->
+    <nav class="fixed top-0 left-0 w-full z-50 py-6 px-10">
+        <div
+            class="max-w-7xl mx-auto flex justify-between items-center bg-white/5 backdrop-blur-md rounded-2xl px-8 py-4 border border-white/10 shadow-2xl">
+            <a href="index.html" class="text-2xl font-bold tracking-tighter flex items-center gap-2">
+                <span class="text-primary">World</span><span class="text-white">360</span>
+            </a>
+            <div class="hidden md:flex gap-8 items-center">
+                <a href="index.html" class="font-medium text-white/80 hover:text-white transition-colors">Home</a>
+                <a href="explore.html" class="font-medium text-white/80 hover:text-white transition-colors">Explore</a>
+                <a href="about.html"
+                    class="font-medium text-white transition-colors border-b-2 border-primary">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6">
+        <div class="text-center mb-20 animate-up">
+            <h1 class="text-6xl font-black mb-6">Our <span class="text-primary">Mission</span></h1>
+            <p class="text-xl text-white/60 leading-relaxed">
+                We believe that travel is not just about visiting places, but about expanding horizons and creating
+                lifelong memories. World360 was built to bring the world's most beautiful destinations to your screen,
+                helping you plan your next great adventure with clarity and inspiration.
+            </p>
+        </div>
+
+        <div class="space-y-24">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center animate-up stagger-1">
+                <div class="glass-card p-10 rounded-[3rem]">
+                    <h3 class="text-3xl font-bold mb-4 text-primary">Global Vision</h3>
+                    <p class="text-white/50 leading-relaxed">
+                        From the peaks of the Himalayas to the crystal lagoons of the South Pacific, our goal is to
+                        document every corner of the earth in high definition.
+                    </p>
+                </div>
+                <div class="h-80 rounded-[3rem] overflow-hidden shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1974&auto=format&fit=crop"
+                        class="w-full h-full object-cover">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center animate-up stagger-2">
+                <div class="h-80 rounded-[3rem] overflow-hidden shadow-2xl order-2 md:order-1">
+                    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=2070&auto=format&fit=crop"
+                        class="w-full h-full object-cover">
+                </div>
+                <div class="glass-card p-10 rounded-[3rem] order-1 md:order-2">
+                    <h3 class="text-3xl font-bold mb-4 text-primary">Travel Community</h3>
+                    <p class="text-white/50 leading-relaxed">
+                        World360 is more than a guide; it's a platform for explorers to connect, share their
+                        experiences, and discover hidden gems that aren't on any traditional map.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-32 text-center glass-card p-16 rounded-[4rem] animate-up stagger-3">
+            <h2 class="text-4xl font-black mb-6">Ready to start your journey?</h2>
+            <p class="text-white/40 mb-10 text-lg">Join thousands of travelers who are discovering the world with
+                World360.</p>
+            <a href="explore.html"
+                class="px-12 py-5 bg-primary hover:bg-primary/80 transition-all rounded-full font-black text-xl shadow-2xl shadow-primary/30 inline-block">
+                Start Exploring Now
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer copied here for consistency -->
+    <footer class="bg-black/50 py-16 px-6 border-t border-white/5 mt-32">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
+            <div>
+                <a href="index.html" class="text-3xl font-bold tracking-tighter flex items-center gap-2 mb-4">
+                    <span class="text-primary">World</span><span class="text-white">360</span>
+                </a>
+                <p class="text-white/40 max-w-sm">
+                    Making the world smaller, one destination at a time. The ultimate guide for global explorers.
+                </p>
+            </div>
+            <div class="flex gap-10">
+                <div class="flex flex-col gap-4">
+                    <p class="text-white font-bold">Quick Links</p>
+                    <a href="index.html" class="text-white/40 hover:text-white transition-colors">Home</a>
+                    <a href="explore.html" class="text-white/40 hover:text-white transition-colors">Explore</a>
+                    <a href="about.html" class="text-white/40 hover:text-white transition-colors">About</a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/5 text-center text-white/20 text-sm">
+            &copy; 2026 World360. All rights reserved.
+        </div>
+    </footer>
+</body>
+
+</html>

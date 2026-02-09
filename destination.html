@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Details | World360</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0ea5e9',
+                        dark: '#0f172a',
+                    }
+                }
+            }
+        }
+    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+
+        h1,
+        h2,
+        h3,
+        .font-display {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 2rem;
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body class="pt-32 pb-24">
+    <!-- Nav -->
+    <nav class="fixed top-0 left-0 w-full z-50 py-6 px-10">
+        <div
+            class="max-w-7xl mx-auto flex justify-between items-center bg-white/5 backdrop-blur-md rounded-2xl px-8 py-4 border border-white/10 shadow-2xl">
+            <a href="index.html" class="text-2xl font-bold tracking-tighter flex items-center gap-2">
+                <span class="text-primary">World</span><span class="text-white">360</span>
+            </a>
+            <div class="hidden md:flex gap-8 items-center">
+                <a href="index.html" class="font-medium text-white/80 hover:text-white transition-colors">Home</a>
+                <a href="explore.html" class="font-medium text-white/80 hover:text-white transition-colors">Explore</a>
+                <a href="about.html" class="font-medium text-white/80 hover:text-white transition-colors">About</a>
+                <a href="contact.html" class="font-medium text-white/80 hover:text-white transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6" id="headerContent"></main>
+
+    <section class="max-w-7xl mx-auto px-6 mt-12 grid grid-cols-1 lg:grid-cols-3 gap-12" id="mainBody">
+        <!-- Main details -->
+        <div class="lg:col-span-2 space-y-12">
+            <div id="videoSection" class="hidden">
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <span class="w-8 h-1 bg-primary rounded-full"></span>
+                    Immersive View
+                </h3>
+                <div class="video-container glass shadow-2xl border-white/10">
+                    <video id="destVideo" autoplay muted loop playsinline></video>
+                </div>
+            </div>
+
+            <div id="gallerySection" class="hidden">
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <span class="w-8 h-1 bg-primary rounded-full"></span>
+                    Photo Gallery
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="galleryGrid"></div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <span class="w-8 h-1 bg-primary rounded-full"></span>
+                    About the Destination
+                </h3>
+                <p id="destLongDescription" class="text-white/60 leading-relaxed text-lg lg:text-xl"></p>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <span class="w-8 h-1 bg-primary rounded-full"></span>
+                    Experience Highlights
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="highlightsGrid"></div>
+            </div>
+        </div>
+
+        <!-- Sidebar Details -->
+        <div class="space-y-8">
+            <div class="glass p-8 rounded-[2rem] border-white/10 sticky top-32">
+                <h4 class="text-xl font-bold mb-6">Trip Essentials</h4>
+                <div class="space-y-6" id="destDetails"></div>
+                <button
+                    class="w-full mt-10 py-4 bg-primary hover:bg-primary/80 transition-all rounded-2xl font-black text-lg shadow-xl shadow-primary/20">
+                    Book This Trip
+                </button>
+                <button class="w-full mt-4 py-4 bg-white/5 hover:bg-white/10 transition-all rounded-2xl font-bold">
+                    Download Guide
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 404 State -->
+    <div id="notFound" class="hidden text-center py-40">
+        <h1 class="text-6xl font-black mb-4">404</h1>
+        <p class="text-xl text-white/40 mb-10">Oops! We can't find that destination.</p>
+        <a href="explore.html" class="px-8 py-3 bg-primary rounded-full font-bold">Back to Explore</a>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.getParameterString ? window.getParameterString : window.location.search);
+        const destId = urlParams.get('id');
+        const destination = getDestination(destId);
+
+        if (!destination) {
+            document.getElementById('headerContent').classList.add('hidden');
+            document.getElementById('mainBody').classList.add('hidden');
+            document.getElementById('notFound').classList.remove('hidden');
+        } else {
+            // Update Tab Title
+            document.title = `${destination.name} | World360`;
+
+            // Render Header
+            document.getElementById('headerContent').innerHTML = `
+                <div class="flex flex-col md:flex-row gap-8 items-end justify-between">
+                    <div>
+                        <p class="text-primary font-black uppercase tracking-[0.3em] mb-4">${destination.country}</p>
+                        <h1 class="text-6xl md:text-8xl font-black">${destination.name}</h1>
+                    </div>
+                    <div class="flex gap-4">
+                        <button class="p-4 glass rounded-2xl hover:bg-primary transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                        <button class="p-4 glass rounded-2xl hover:bg-primary transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-12 h-[500px] w-full rounded-[3rem] overflow-hidden shadow-2xl relative">
+                    <img src="${destination.image}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=2000&auto=format&fit=crop'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/60 to-transparent"></div>
+                </div>
+            `;
+
+            // Video
+            if (destination.video) {
+                document.getElementById('videoSection').classList.remove('hidden');
+                document.getElementById('destVideo').src = destination.video;
+            }
+
+            // Gallery
+            if (destination.gallery && destination.gallery.length > 0) {
+                document.getElementById('gallerySection').classList.remove('hidden');
+                document.getElementById('galleryGrid').innerHTML = destination.gallery.map(imgUrl => `
+                    <div class="group relative h-64 overflow-hidden rounded-2xl shadow-xl cursor-pointer">
+                        <img src="${imgUrl}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=2000&auto=format&fit=crop'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                `).join('');
+            }
+
+            // Description
+            document.getElementById('destLongDescription').innerText = destination.description;
+
+            // Details
+            document.getElementById('destDetails').innerHTML = destination.details.map(d => `
+                <div class="flex justify-between items-center border-b border-white/5 pb-4">
+                    <span class="text-white/40 text-sm font-semibold">${d.label}</span>
+                    <span class="text-white font-bold">${d.value}</span>
+                </div>
+            `).join('');
+
+            // Highlights
+            document.getElementById('highlightsGrid').innerHTML = destination.highlights.map(h => `
+                <div class="glass p-6 rounded-2xl border-white/5 flex items-center gap-4 group hover:border-primary/50 transition-all">
+                    <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold">✓</div>
+                    <span class="font-bold text-white/80 group-hover:text-white transition-colors">${h}</span>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+
+</html>
